@@ -21,7 +21,8 @@ from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
 def handler():
 
     gpus = tf.config.list_physical_devices('GPU')
-    if gpus:
+    if not gpus:
+        return 'no gpus'
     # Create 2 virtual GPUs with 1GB memory each
     try:
         tf.config.set_logical_device_configuration(
