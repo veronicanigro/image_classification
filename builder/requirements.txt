@@ -5,9 +5,9 @@
 # git+https://github.com/runpod/runpod-python.git
 # To learn more, see https://pip.pypa.io/en/stable/reference/requirements-file-format/
 
-numpy
-matplotlib
-tensorflow
-cv2
-imghdr
-tensorflow-gpu
+numpy==1.26.3
+matplotlib==3.8.2
+tensorflow==2.15.0
+opencv-python==4.9.0.80
+
+
