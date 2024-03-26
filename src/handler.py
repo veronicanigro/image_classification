@@ -11,11 +11,21 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
 
+
+
+
 # If your handler runs inference on a model, load the model here.
 # You will want models to be loaded into memory before starting serverless.
 
 
-def handler(job):
+def handler():
+    
+    sess = tf.Session()
+    gpus = tf.config.experimental.list_physical_devices('GPU')
+    for gpu in gpus: 
+        tf.config.experimental.set_memory_growth(gpu, True)
+
+    tf.config.list_physical_devices('GPU')
     
     data = tf.keras.utils.image_dataset_from_directory('../data')
     data_iterator = data.as_numpy_iterator()
@@ -67,7 +77,7 @@ def handler(job):
 
     return f'{pre.result()}, {re.result()}, {acc.result()}'
 
+print(handler())
 
-runpod.serverless.start({"handler": handler})
 
 
