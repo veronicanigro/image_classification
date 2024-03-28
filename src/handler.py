@@ -8,7 +8,7 @@ from matplotlib import pyplot as plt
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Conv2D, MaxPooling2D, Dense, Flatten, Dropout
 from tensorflow.keras.metrics import Precision, Recall, BinaryAccuracy
-
+import time
 
 
 
@@ -49,7 +49,7 @@ def handler():
     test = data.skip(train_size+val_size).take(test_size)
 
     # define tf model
-
+    start = time.time()
     model = Sequential()
 
     model.add(Conv2D(16, (3,3), 1, activation='relu', input_shape=(256,256,3)))
@@ -80,7 +80,8 @@ def handler():
         re.update_state(y, yhat)
         acc.update_state(y, yhat)
 
-
+    end = time.time()
+    print(end-start)
     return f'{pre.result()}, {re.result()}, {acc.result()}'
 
 print(handler())
